@@ -4,10 +4,11 @@
 
 let input = document.querySelector("input");
 let button = document.querySelector("button");
+let weatherDisplayContainer = document.querySelector(".weather-display")
 
 function getWeatherData(place) {
 
-    fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${place}?key=BKCJWHGKVN7TN2PLK4YMYEXHZ`)
+    return fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${place}?key=BKCJWHGKVN7TN2PLK4YMYEXHZ`)
     .then(function(response) {
         return response.json();
     })
@@ -21,7 +22,8 @@ function getWeatherData(place) {
         let sunset = data.currentConditions.sunset;
         let uvIndex = data.currentConditions.uvindex;
 
-        console.log({ temp, feelsLike, humidity, icon, cloudCover, sunrise, sunset, uvIndex });
+        return { temp, feelsLike, humidity, icon, cloudCover, sunrise, sunset, uvIndex };
+
     })
 
     .catch(function(err){
@@ -48,13 +50,101 @@ function stringFormatter(string) {
 
 }
 
-button.addEventListener("click", (e) => {
+button.addEventListener("click", async (e) => {
 
     e.preventDefault();
     let city = getUserInput();
 
     let formattedCity = stringFormatter(city);
-    
-    getWeatherData(formattedCity);
+
+    let weatherData = await getWeatherData(formattedCity);
+    let temp = weatherData.temp
+
+    tempSectionGenerator(temp, city);
 
 })
+
+function farenheitToCelsius(farNumber) {
+
+    let celNumber = (farNumber - 32) * 5/9;
+    let oneDecimalNumber = celNumber.toFixed(1);
+
+    return oneDecimalNumber;
+
+}
+
+function celsiusToFarenheit(celNumber) {
+
+    let farNumber = (celNumber * 9/5) + 32;
+
+    return farNumber
+
+}
+
+function containerMaker(classContent) {
+
+    let container = document.createElement("div");
+    container.classList.add(`${classContent}`);
+
+    return container
+
+}
+
+function textBoxMaker(boxType, classContent, textContent) {
+
+    let textBox = document.createElement(`${boxType}`);
+    textBox.classList.add(`${classContent}`);
+    textBox.textContent = `${textContent}`;
+
+    return textBox
+
+}
+
+function buttonMaker(classContent, textContent) {
+
+    let button = document.createElement("button");
+    button.classList.add(`${classContent}`);
+    button.textContent = `${textContent}`;
+
+    return button;
+
+}
+
+function tempSectionGenerator(tempValue, cityValue) {
+
+    let tempContainer = containerMaker("temp-container");
+    let tempHeading = textBoxMaker("h2", "temp-heading", `Temperature in ${cityValue}`);
+    let tempData = textBoxMaker("p", "temp-data", `${tempValue} F`);
+    tempData.dataset.degreeType = "Farenheit"
+    let changeUnitButton = buttonMaker("change-unit-button", "Change to Celsius");
+
+    weatherDisplayContainer.appendChild(tempContainer);
+    tempContainer.appendChild(tempHeading);
+    tempContainer.appendChild(tempData);
+    tempContainer.appendChild(changeUnitButton);
+
+    changeUnitButton.addEventListener("click", (e) => {
+
+        e.preventDefault();
+
+        if (tempData.dataset.degreeType === "Farenheit") {
+
+            let celTemp = farenheitToCelsius(tempValue);
+            changeUnitButton.textContent = "Change to Farenheit";
+            tempData.textContent = `${celTemp} C`;
+            tempData.dataset.degreeType = "Celsius";
+
+        }
+
+        else {
+
+            tempData.textContent = `${tempValue} F`;
+            tempData.dataset.degreeType = "Farenheit";
+
+        }
+
+    })
+
+}
+
+
