@@ -4,7 +4,9 @@
 
 let input = document.querySelector("input");
 let button = document.querySelector("button");
-let weatherDisplayContainer = document.querySelector(".weather-display")
+let bigContainer = document.querySelector(".weather-display");
+let weatherDisplayContainer = document.querySelector(".data-section");
+let bigContainerTitle = document.querySelector(".weather-display-title");
 
 function getWeatherData(place) {
 
@@ -56,8 +58,10 @@ button.addEventListener("click", async (e) => {
 
     e.preventDefault();
     weatherDisplayContainer.replaceChildren();
-    
+
     let city = getUserInput();
+
+    bigContainerTitle.textContent = `The weather in ${city}:`
 
     let formattedCity = stringFormatter(city);
 
@@ -65,9 +69,19 @@ button.addEventListener("click", async (e) => {
     let temp = weatherData.temp;
     let feelsLike = weatherData.feelsLike;
     let icon = weatherData.icon;
+    let humidity = weatherData.humidity;
+    let cloudCover = weatherData.cloudCover;
+    let sunriseTime = weatherData.sunrise;
+    let sunsetTime = weatherData.sunset;
+    let uvIndex = weatherData.uvIndex;
 
     tempSectionGenerator(temp, feelsLike, city);
     iconSectionGenerator(icon);
+    humiditySectionGenerator(humidity);
+    cloudCoverSectionGenerator(cloudCover);
+    sunriseSunsetGenerator("Sunrise", sunriseTime);
+    sunriseSunsetGenerator("Sunset", sunsetTime);
+    uvIndexGenerator(uvIndex);
 
     
 })
@@ -122,24 +136,44 @@ function tempSectionGenerator(actualTempValue, feelsLikeTempValue, cityValue) {
 
     let allTempContainer = containerMaker("all-temp-container");
     let tempContainer = containerMaker("temp-container");
+    let tempTitleContainer = containerMaker("temp-title-container");
+    let feelsLikeTitleContainer = containerMaker("feels-like-title-container");
     let feelsLikeContainer = containerMaker("feels-like-container");
 
     let tempHeading = textBoxMaker("h2", "temp-heading", `Temperature in ${cityValue}`);
+    let tempIconContainer = containerMaker(`temp-heading-icon-container`);
+    let tempCurrentIcon = svgCreator(`<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M8 15.9998C7.44772 15.9998 7 16.4475 7 16.9998C7 17.5521 7.44772 17.9998 8 17.9998C8.55228 17.9998 9 17.5521 9 16.9998C9 16.4475 8.55228 15.9998 8 15.9998ZM8 15.9998L8.00707 12M8 16.9998L8.00707 17.0069M20 5C20 6.10457 19.1046 7 18 7C16.8954 7 16 6.10457 16 5C16 3.89543 16.8954 3 18 3C19.1046 3 20 3.89543 20 5ZM12 16.9998C12 19.209 10.2091 20.9998 8 20.9998C5.79086 20.9998 4 19.209 4 16.9998C4 15.9854 4.37764 15.0591 5 14.354L5 6C5 4.34315 6.34315 3 8 3C9.65685 3 11 4.34315 11 6V14.354C11.6224 15.0591 12 15.9854 12 16.9998Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>`);
+    tempCurrentIcon.style.width = "30px";
+
     let tempData = textBoxMaker("p", "temp-data", `${actualTempValue} F`);
     tempData.dataset.degreeType = "Farenheit"
 
     let feelsLikeHeading = textBoxMaker("h2", "feels-like-heading", `Feels like:`);
+    let feelsLikeIconContainer = containerMaker(`feels-like-heading-icon-container`);
+    let feelsLikeCurrentIcon = svgCreator(`<svg fill="#000000" viewBox="0 0 32 32" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <defs> <style> .cls-1 { fill: none; } </style> </defs> <path d="M26,30H22a2.0059,2.0059,0,0,1-2-2V21a2.0059,2.0059,0,0,1-2-2V13a2.9465,2.9465,0,0,1,3-3h6a2.9465,2.9465,0,0,1,3,3v6a2.0059,2.0059,0,0,1-2,2v7A2.0059,2.0059,0,0,1,26,30ZM21,12a.9448.9448,0,0,0-1,1v6h2v9h4V19h2V13a.9448.9448,0,0,0-1-1Z" transform="translate(0 0)"></path> <path d="M24,9a4,4,0,1,1,4-4h0A4.0118,4.0118,0,0,1,24,9Zm0-6a2,2,0,1,0,2,2h0a2.0059,2.0059,0,0,0-2-2Z" transform="translate(0 0)"></path> <path d="M10,20.1839V12H8v8.1839a3,3,0,1,0,2,0Z" transform="translate(0 0)"></path> <path d="M9,30A6.9931,6.9931,0,0,1,4,18.1108V7A5,5,0,0,1,14,7V18.1108A6.9931,6.9931,0,0,1,9,30ZM9,4A3.0033,3.0033,0,0,0,6,7V18.9834l-.332.2983a5,5,0,1,0,6.664,0L12,18.9834V7A3.0033,3.0033,0,0,0,9,4Z" transform="translate(0 0)"></path> <rect id="_Transparent_Rectangle_" data-name="&lt;Transparent Rectangle&gt;" class="cls-1" width="32" height="32"></rect> </g></svg>`);
+    feelsLikeCurrentIcon.style.width = "30px";
+
     let feelsLikeData = textBoxMaker("p", "feels-like-data", `${feelsLikeTempValue} F`);
 
     let changeUnitButton = buttonMaker("change-unit-button", "Change to Celsius");
 
     weatherDisplayContainer.appendChild(allTempContainer);
+
     allTempContainer.appendChild(tempContainer);
     allTempContainer.appendChild(feelsLikeContainer);
-    tempContainer.appendChild(tempHeading);
+
+    tempIconContainer.appendChild(tempCurrentIcon);
+    tempTitleContainer.appendChild(tempHeading);
+    tempTitleContainer.appendChild(tempIconContainer);
+    tempContainer.appendChild(tempTitleContainer)
     tempContainer.appendChild(tempData);
-    feelsLikeContainer.appendChild(feelsLikeHeading);
+
+    feelsLikeIconContainer.appendChild(feelsLikeCurrentIcon);
+    feelsLikeTitleContainer.appendChild(feelsLikeHeading);
+    feelsLikeTitleContainer.appendChild(feelsLikeIconContainer);
+    feelsLikeContainer.appendChild(feelsLikeTitleContainer);
     feelsLikeContainer.appendChild(feelsLikeData);
+
     allTempContainer.appendChild(changeUnitButton);
 
     changeUnitButton.addEventListener("click", (e) => {
@@ -183,7 +217,7 @@ function svgCreator(uniqueString) {
 
 function iconSectionGenerator(iconInfo) {
 
-    let iconContainer = containerMaker("icon-container");
+    let iconContainer = containerMaker(`${iconInfo}-icon-container`);
     let currentIcon;
 
     if (iconInfo === "clear-day") {
@@ -256,4 +290,89 @@ function iconSectionGenerator(iconInfo) {
     weatherDisplayContainer.appendChild(iconContainer);
 
     
+}
+
+function humiditySectionGenerator(humidityInfo) {
+
+    let container = containerMaker("humidity-container");
+
+    let humidityTitle = textBoxMaker("h2", "humidity-title", "Humidity");
+
+    let humidityData = textBoxMaker("p", "humidity-data", `${humidityInfo}%`);
+
+    container.appendChild(humidityTitle);
+    container.appendChild(humidityData);
+    weatherDisplayContainer.appendChild(container);
+}
+
+function cloudCoverSectionGenerator(cloudCoverInfo) {
+
+    let container = containerMaker("cloud-cover-container");
+
+    let title = textBoxMaker("h2", "cloud-cover-title", "Cloud Cover");
+
+    let data = textBoxMaker("p", "cloud-cover-data", `${cloudCoverInfo}%`);
+
+    container.appendChild(title);
+    container.appendChild(data);
+    weatherDisplayContainer.appendChild(container);
+}
+
+function sunriseSunsetGenerator(sunState, sunData) {
+
+    let container = containerMaker(`${sunState}-container`);
+
+    let title = textBoxMaker("h2", `${sunState}-title`, `${sunState}`);
+
+    let data = textBoxMaker("p", `${sunState}-data`, `${sunData}`);
+
+    container.appendChild(title);
+    container.appendChild(data);
+    weatherDisplayContainer.appendChild(container);
+
+}
+
+function uvIndexGenerator(uvData) {
+
+    let container = containerMaker(`uv-index-container`);
+
+    let title = textBoxMaker("h2", `uv-index-title`, `UV Index`);
+
+    let data;
+
+    if (uvData === 0 || uvData === 1 || uvData === 2) {
+
+        data = textBoxMaker("p", `uv-index-data`, `The UV is ${uvData}, low. Minimal sun cover and sunglasses are needed.`);
+
+    }
+    
+    else if (uvData === 3 || uvData === 4 || uvData === 5) {
+
+        data = textBoxMaker("p", `uv-index-data`, `The UV is ${uvData}, moderate. Sun cover, suncream, and sunglasses are needed.`);
+
+    }
+
+    else if (uvData === 6 || uvData === 7) {
+
+        data = textBoxMaker("p", `uv-index-data`, `The UV is ${uvData}, high. Seek shade, use a hat, protetive clothing, suncream, and sunglasses.`);
+
+    }
+
+    else if (uvData === 8 || uvData === 9 || uvData === 10) {
+
+        data = textBoxMaker("p", `uv-index-data`, `The UV is ${uvData}, very high. Minimise time outdoors and wear all protection.`);
+
+    }
+
+    else if (uvData === 11) {
+
+        data = textBoxMaker("p", `uv-index-data`, `The UV is ${uvData}, extremely high. Sun damage can occur in minutes. Remain indoors if possible`)
+
+    }
+
+
+    container.appendChild(title);
+    container.appendChild(data);
+    weatherDisplayContainer.appendChild(container);
+
 }
