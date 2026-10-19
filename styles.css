@@ -53,6 +53,7 @@ table {
     justify-content: center;
     align-items: center;
     padding: 50px;
+    font-family: sans-serif;
 }
 
 .data-section {
@@ -115,8 +116,72 @@ p {
 
 form, 
 label,
-input {
+input,
+button {
 
     font-size: 20px;
+
+}
+
+/* 
+
+"clear-day"
+
+dark orange: cc5803
+mid orange: e2711d
+bright orange: ff9505
+yellow: ffb627
+light yellow: ffc971
+
+"clear-night"
+
+Dark blue: 051923
+mid blue: 003554
+bright blue: 006494
+lighter blue: 0582ca
+lightest blue: 00a6fb
+
+"cloudy"
+minty: bee9e8
+darker minty: 62b6cb
+dark blue: 1b4965
+pale blue: cae9ff
+dark pale blue: 5fa8d3
+
+"fog"
+darkest grey: 5f7470
+dark grey: 889696
+mid grey: b8bdb5
+lighter grey: d2d4c8
+lightest grey: e0e2db
+
+"partly-cloudy-day"
+blue: 6798c0
+lighter blue: 99d6ea
+white: fffdf7
+lighter yellow: fdd85d
+bright yellow: fdc921
+
+"partly-cloudy-night"
+
+darkest blue: 0d1b2a
+dark blue: 1b263b
+mid blue: 415a77
+lighter blue: 778da9
+lightest blue: e0e1dd
+
+"rain"
+use cloudy
+
+"snow"
+use cloudy
+
+"wind"
+use fog
+
+*/
+
+[data-weather="rain"] {
+
 
 }

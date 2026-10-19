@@ -442,63 +442,90 @@ function uvIndexGenerator(uvData) {
 function weatherStateChecker() {
 
     let weatherStates = ["clear-day", "clear-night", "cloudy", "fog", "partly-cloudy-day", "partly-cloudy-night", "rain", "snow", "wind"];
+    let button;
 
     for (let i = 0; i < weatherStates.length; i++) {
 
-        if (weatherStates[i] === "clear-day") {
+        if (document.querySelector(".change-unit-button")) {
+            
+            button = document.querySelector(".change-unit-button");
 
-            mainContainer.dataset.weather = "clear-day";
-        }
+            if (weatherStates[i] === "clear-day") {
 
-        else if (weatherStates[i] === "clear-night") {
+                mainContainer.dataset.weather = "clear-day";
+                bigContainer.dataset.weather = "clear-day";
+                button.dataset.weather = "clear-day"
+                }
+            
 
-            mainContainer.dataset.weather === "clear-night";
+            else if (weatherStates[i] === "clear-night") {
 
-        }
+                mainContainer.dataset.weather === "clear-night";
+                bigContainer.dataset.weather === "clear-night";
+                button.dataset.weather === "clear-night";
 
-        else if (weatherStates[i] === "cloudy") {
+            }
 
-            mainContainer.dataset.weather = "cloudy";
+            else if (weatherStates[i] === "cloudy") {
 
-        }
+                mainContainer.dataset.weather = "cloudy";
+                bigContainer.dataset.weather = "cloudy";
+                button.dataset.weather = "cloudy";
 
-        else if (weatherStates[i] === "fog") {
+            }
 
-            mainContainer.dataset.weather = "fog";
+            else if (weatherStates[i] === "fog") {
 
-        }
+                mainContainer.dataset.weather = "fog";
+                bigContainer.dataset.weather = "fog";
+                button.dataset.weather = "fog";
+
+            }
 
 
-        else if (weatherStates[i] === "partly-cloudy-day") {
+            else if (weatherStates[i] === "partly-cloudy-day") {
 
-            mainContainer.dataset.weather = "partly-cloudy-day";
+                mainContainer.dataset.weather = "partly-cloudy-day";
+                bigContainer.dataset.weather = "partly-cloudy-day";
+                button.dataset.weather = "partly-cloudy-day";
 
-        }
+            }
 
-        else if (weatherStates[i] === "partly-cloudy-night") {
+            else if (weatherStates[i] === "partly-cloudy-night") {
 
-            mainContainer.dataset.weather = "partly-cloudy-night";
+                mainContainer.dataset.weather = "partly-cloudy-night";
+                bigContainer.dataset.weather = "partly-cloudy-night";
+                button.dataset.weather = "partly-cloudy-night";
 
-        }
+            }
 
-        else if (weatherStates[i] === "rain") {
+            else if (weatherStates[i] === "rain") {
 
-            mainContainer.dataset.weather = "rain";
+                mainContainer.dataset.weather = "rain";
+                bigContainer.dataset.weather = "rain";
+                button.dataset.weather = "rain";
 
-        }
+            }
 
-        else if (weatherStates[i] === "snow") {
+            else if (weatherStates[i] === "snow") {
 
-            mainContainer.dataset.weather = "snow";
+                mainContainer.dataset.weather = "snow";
+                bigContainer.dataset.weather = "snow";
+                button.dataset.weather = "snow";
 
-        }
+            }
 
-        else if (weatherStates[i] === "wind") {
+            else if (weatherStates[i] === "wind") {
 
-            mainContainer.dataset.weather = "wind";
+                mainContainer.dataset.weather = "wind";
+                big.dataset.weather = "wind";
+                button.dataset.weather = "wind";
+
+            }
 
         }
 
     }
-
+    
 }
+
