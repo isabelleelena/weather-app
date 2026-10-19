@@ -7,6 +7,7 @@ let button = document.querySelector("button");
 let bigContainer = document.querySelector(".weather-display");
 let weatherDisplayContainer = document.querySelector(".data-section");
 let bigContainerTitle = document.querySelector(".weather-display-title");
+let mainContainer = document.querySelector(".container");
 
 function getWeatherData(place) {
 
@@ -61,7 +62,9 @@ button.addEventListener("click", async (e) => {
 
     let city = getUserInput();
 
-    bigContainerTitle.textContent = `The weather in ${city}:`
+    let cityUpperCase = city.toUpperCase();
+
+    bigContainerTitle.textContent = `THE WEATHER IN ${cityUpperCase}:`
 
     let formattedCity = stringFormatter(city);
 
@@ -75,12 +78,14 @@ button.addEventListener("click", async (e) => {
     let sunsetTime = weatherData.sunset;
     let uvIndex = weatherData.uvIndex;
 
-    tempSectionGenerator(temp, feelsLike, city);
+
+    weatherStateChecker();
+    tempSectionGenerator(temp, feelsLike, cityUpperCase);
     iconSectionGenerator(icon);
     humiditySectionGenerator(humidity);
     cloudCoverSectionGenerator(cloudCover);
-    sunriseSunsetGenerator("Sunrise", sunriseTime);
-    sunriseSunsetGenerator("Sunset", sunsetTime);
+    sunriseSunsetGenerator("SUNRISE", sunriseTime);
+    sunriseSunsetGenerator("SUNSET", sunsetTime);
     uvIndexGenerator(uvIndex);
 
     
@@ -140,22 +145,22 @@ function tempSectionGenerator(actualTempValue, feelsLikeTempValue, cityValue) {
     let feelsLikeTitleContainer = containerMaker("feels-like-title-container");
     let feelsLikeContainer = containerMaker("feels-like-container");
 
-    let tempHeading = textBoxMaker("h2", "temp-heading", `Temperature in ${cityValue}`);
+    let tempHeading = textBoxMaker("h2", "temp-heading", `TEMPERATURE IN ${cityValue}`);
     let tempIconContainer = containerMaker(`temp-heading-icon-container`);
     let tempCurrentIcon = svgCreator(`<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M8 15.9998C7.44772 15.9998 7 16.4475 7 16.9998C7 17.5521 7.44772 17.9998 8 17.9998C8.55228 17.9998 9 17.5521 9 16.9998C9 16.4475 8.55228 15.9998 8 15.9998ZM8 15.9998L8.00707 12M8 16.9998L8.00707 17.0069M20 5C20 6.10457 19.1046 7 18 7C16.8954 7 16 6.10457 16 5C16 3.89543 16.8954 3 18 3C19.1046 3 20 3.89543 20 5ZM12 16.9998C12 19.209 10.2091 20.9998 8 20.9998C5.79086 20.9998 4 19.209 4 16.9998C4 15.9854 4.37764 15.0591 5 14.354L5 6C5 4.34315 6.34315 3 8 3C9.65685 3 11 4.34315 11 6V14.354C11.6224 15.0591 12 15.9854 12 16.9998Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>`);
-    tempCurrentIcon.style.width = "30px";
+    tempCurrentIcon.style.width = "60px";
 
     let tempData = textBoxMaker("p", "temp-data", `${actualTempValue} F`);
     tempData.dataset.degreeType = "Farenheit"
 
-    let feelsLikeHeading = textBoxMaker("h2", "feels-like-heading", `Feels like:`);
+    let feelsLikeHeading = textBoxMaker("h2", "feels-like-heading", `FEELS LIKE:`);
     let feelsLikeIconContainer = containerMaker(`feels-like-heading-icon-container`);
     let feelsLikeCurrentIcon = svgCreator(`<svg fill="#000000" viewBox="0 0 32 32" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <defs> <style> .cls-1 { fill: none; } </style> </defs> <path d="M26,30H22a2.0059,2.0059,0,0,1-2-2V21a2.0059,2.0059,0,0,1-2-2V13a2.9465,2.9465,0,0,1,3-3h6a2.9465,2.9465,0,0,1,3,3v6a2.0059,2.0059,0,0,1-2,2v7A2.0059,2.0059,0,0,1,26,30ZM21,12a.9448.9448,0,0,0-1,1v6h2v9h4V19h2V13a.9448.9448,0,0,0-1-1Z" transform="translate(0 0)"></path> <path d="M24,9a4,4,0,1,1,4-4h0A4.0118,4.0118,0,0,1,24,9Zm0-6a2,2,0,1,0,2,2h0a2.0059,2.0059,0,0,0-2-2Z" transform="translate(0 0)"></path> <path d="M10,20.1839V12H8v8.1839a3,3,0,1,0,2,0Z" transform="translate(0 0)"></path> <path d="M9,30A6.9931,6.9931,0,0,1,4,18.1108V7A5,5,0,0,1,14,7V18.1108A6.9931,6.9931,0,0,1,9,30ZM9,4A3.0033,3.0033,0,0,0,6,7V18.9834l-.332.2983a5,5,0,1,0,6.664,0L12,18.9834V7A3.0033,3.0033,0,0,0,9,4Z" transform="translate(0 0)"></path> <rect id="_Transparent_Rectangle_" data-name="&lt;Transparent Rectangle&gt;" class="cls-1" width="32" height="32"></rect> </g></svg>`);
-    feelsLikeCurrentIcon.style.width = "30px";
+    feelsLikeCurrentIcon.style.width = "60px";
 
     let feelsLikeData = textBoxMaker("p", "feels-like-data", `${feelsLikeTempValue} F`);
 
-    let changeUnitButton = buttonMaker("change-unit-button", "Change to Celsius");
+    let changeUnitButton = buttonMaker("change-unit-button", "CHANGE TO CELSIUS");
 
     weatherDisplayContainer.appendChild(allTempContainer);
 
@@ -184,7 +189,7 @@ function tempSectionGenerator(actualTempValue, feelsLikeTempValue, cityValue) {
 
             let celActualTemp = farenheitToCelsius(actualTempValue);
             let celFeelsLikeTemp = farenheitToCelsius(feelsLikeTempValue);
-            changeUnitButton.textContent = "Change to Farenheit";
+            changeUnitButton.textContent = "CHANGE TO FARENHEIT";
             tempData.textContent = `${celActualTemp} C`;
             feelsLikeData.textContent = `${celFeelsLikeTemp} C`;
             
@@ -235,7 +240,7 @@ function iconSectionGenerator(iconInfo) {
 
     else if (iconInfo === "cloudy") {
 
-        currentIcon = svgCreator(`<svg fill="#000000" height="200px" width="200px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 384 384" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M280,125.672c-4.32,0-8.632,0.264-12.896,0.784C253.592,85.328,213.64,56,168,56c-57.344,0-104,45.376-104,101.16 c0,0.904,0.008,1.8,0.032,2.696C26.592,169.992,0,203.064,0,242.328C0,289.568,39.48,328,88,328h192 c57.344,0,104-45.376,104-101.16S337.344,125.672,280,125.672z M280,296H88c-30.88,0-56-24.08-56-53.672 c0-27.952,21.88-50.92,50.896-53.432c4.544-0.392,8.704-2.704,11.44-6.36c2.728-3.656,3.776-8.304,2.864-12.768 c-0.8-3.912-1.2-8.152-1.2-12.608C96,119.024,128.304,88,168,88c35.72,0,66.368,25.56,71.28,59.456 c0.664,4.568,3.272,8.632,7.152,11.144c3.88,2.504,8.656,3.216,13.096,1.944c6.64-1.904,13.528-2.864,20.48-2.864 c39.704,0,72,31.024,72,69.168C352.008,264.992,319.704,296,280,296z"></path> </g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> </g></svg>`);
+        currentIcon = svgCreator(`<svg fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 384 384" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M280,125.672c-4.32,0-8.632,0.264-12.896,0.784C253.592,85.328,213.64,56,168,56c-57.344,0-104,45.376-104,101.16 c0,0.904,0.008,1.8,0.032,2.696C26.592,169.992,0,203.064,0,242.328C0,289.568,39.48,328,88,328h192 c57.344,0,104-45.376,104-101.16S337.344,125.672,280,125.672z M280,296H88c-30.88,0-56-24.08-56-53.672 c0-27.952,21.88-50.92,50.896-53.432c4.544-0.392,8.704-2.704,11.44-6.36c2.728-3.656,3.776-8.304,2.864-12.768 c-0.8-3.912-1.2-8.152-1.2-12.608C96,119.024,128.304,88,168,88c35.72,0,66.368,25.56,71.28,59.456 c0.664,4.568,3.272,8.632,7.152,11.144c3.88,2.504,8.656,3.216,13.096,1.944c6.64-1.904,13.528-2.864,20.48-2.864 c39.704,0,72,31.024,72,69.168C352.008,264.992,319.704,296,280,296z"></path> </g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> </g></svg>`);
 
 
     }
@@ -283,7 +288,7 @@ function iconSectionGenerator(iconInfo) {
 
     }
 
-    currentIcon.style.width = "100px"
+    currentIcon.style.width = "200px";
 
     iconContainer.appendChild(currentIcon);
     
@@ -296,11 +301,22 @@ function humiditySectionGenerator(humidityInfo) {
 
     let container = containerMaker("humidity-container");
 
-    let humidityTitle = textBoxMaker("h2", "humidity-title", "Humidity");
+    let humidityTitleContainer = containerMaker("humidity-title-container")
+
+    let humidityTitle = textBoxMaker("h2", "humidity-title", "HUMIDITY");
+
+    let humiditySVGcontainer = containerMaker("humidity-svg-container");
+    let humiditySVG = svgCreator(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"></path> <path d="M12.56 6.6A10.97 10.97 0 0014 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 01-11.91 4.97"></path> </g></svg>`);
+
+    humiditySVG.style.width = "60px"
+    humiditySVGcontainer.appendChild(humiditySVG);
+
+    humidityTitleContainer.appendChild(humidityTitle);
+    humidityTitleContainer.appendChild(humiditySVGcontainer);
 
     let humidityData = textBoxMaker("p", "humidity-data", `${humidityInfo}%`);
 
-    container.appendChild(humidityTitle);
+    container.appendChild(humidityTitleContainer);
     container.appendChild(humidityData);
     weatherDisplayContainer.appendChild(container);
 }
@@ -309,24 +325,61 @@ function cloudCoverSectionGenerator(cloudCoverInfo) {
 
     let container = containerMaker("cloud-cover-container");
 
-    let title = textBoxMaker("h2", "cloud-cover-title", "Cloud Cover");
+    let title = textBoxMaker("h2", "cloud-cover-title", "CLOUD COVER");
+
+    let titleContainer = containerMaker("cloud-cover-title-container")
 
     let data = textBoxMaker("p", "cloud-cover-data", `${cloudCoverInfo}%`);
 
-    container.appendChild(title);
+    let cloudCoverSVGcontainer = containerMaker("cloud-cover-svg-container");
+    let cloudCoverSVG = svgCreator(`<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M22 12.3529C22 9.88113 20.393 7.78024 18.1551 7.01498M6.28571 18C3.91878 18 2 16.1038 2 13.7647C2 11.4256 3.91878 9.52941 6.28571 9.52941C6.56983 9.52941 6.8475 9.55673 7.11616 9.60887M14.381 7.02721C14.9767 6.81911 15.6178 6.70588 16.2857 6.70588C16.9404 6.70588 17.5693 6.81468 18.1551 7.01498M7.11616 9.60887C6.88706 8.9978 6.7619 8.33687 6.7619 7.64706C6.7619 4.52827 9.32028 2 12.4762 2C15.4159 2 17.8371 4.19371 18.1551 7.01498M7.11616 9.60887C7.68059 9.71839 8.20528 9.9374 8.66667 10.2426" stroke="#000000" stroke-width="1.5" stroke-linecap="round"></path> <path d="M17.0476 15.142C17.4349 15.0119 17.8516 14.9412 18.2857 14.9412C18.7113 14.9412 19.1201 15.0092 19.5008 15.1344M12.3255 16.7555C12.1509 16.723 11.9704 16.7059 11.7857 16.7059C10.2472 16.7059 9 17.891 9 19.3529C9 20.8149 10.2472 22 11.7857 22H18.2857C20.3371 22 22 20.4198 22 18.4706C22 16.9257 20.9554 15.6126 19.5008 15.1344M12.3255 16.7555C12.1766 16.3736 12.0952 15.9605 12.0952 15.5294C12.0952 13.5802 13.7582 12 15.8095 12C17.7203 12 19.2941 13.3711 19.5008 15.1344M12.3255 16.7555C12.6924 16.824 13.0334 16.9609 13.3333 17.1516" stroke="#000000" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>`);
+
+    cloudCoverSVG.style.width = "60px"
+    cloudCoverSVGcontainer.appendChild(cloudCoverSVG);
+
+    titleContainer.appendChild(title);
+    titleContainer.appendChild(cloudCoverSVGcontainer);
+
+    container.appendChild(titleContainer);
     container.appendChild(data);
     weatherDisplayContainer.appendChild(container);
 }
 
 function sunriseSunsetGenerator(sunState, sunData) {
 
-    let container = containerMaker(`${sunState}-container`);
+    let lowerCaseSunState = sunState.toLowerCase()
 
-    let title = textBoxMaker("h2", `${sunState}-title`, `${sunState}`);
+    let container = containerMaker(`${lowerCaseSunState}-container`);
 
-    let data = textBoxMaker("p", `${sunState}-data`, `${sunData}`);
+    let title = textBoxMaker("h2", `${lowerCaseSunState}-title`, `${sunState}`);
 
-    container.appendChild(title);
+    let data = textBoxMaker("p", `${lowerCaseSunState}-data`, `${sunData}`);
+
+    let titleContainer = containerMaker(`${lowerCaseSunState}-title-container`);
+
+    let sunStateSVGContainer = containerMaker(`${lowerCaseSunState}-svg-container`);
+
+    let sunStateSVG;
+
+    if (sunState === `SUNRISE`) {
+
+        sunStateSVG = svgCreator(`<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 10V3M12 3L9 6M12 3L15 6M6 12L5 11M18 12L19 11M3 18H21M5 21H19M7 18C7 15.2386 9.23858 13 12 13C14.7614 13 17 15.2386 17 18" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>`);
+
+    }
+
+    else if (sunState === "SUNSET") {
+
+        sunStateSVG = svgCreator(`<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M6 12L5 11M18 12L19 11M3 18H21M5 21H19M7 18C7 15.2386 9.23858 13 12 13C14.7614 13 17 15.2386 17 18M12 3V10M12 10L15 7M12 10L9 7" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>`)
+        
+    }
+
+    sunStateSVGContainer.appendChild(sunStateSVG);
+    sunStateSVG.style.width = "60px";
+
+    titleContainer.appendChild(title);
+    titleContainer.appendChild(sunStateSVGContainer)
+
+    container.appendChild(titleContainer);
     container.appendChild(data);
     weatherDisplayContainer.appendChild(container);
 
@@ -336,7 +389,17 @@ function uvIndexGenerator(uvData) {
 
     let container = containerMaker(`uv-index-container`);
 
-    let title = textBoxMaker("h2", `uv-index-title`, `UV Index`);
+    let title = textBoxMaker("h2", `uv-index-title`, `UV INDEX`);
+
+    let titleContainer = containerMaker("uv-index-title-container");
+
+    let uvSVGcontainer = containerMaker("uv-svg-container");
+    let uvSVG = svgCreator(`<svg fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 292.915 292.915" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M134.997,150.764c0,5.823-2.153,8.564-6.068,8.564c-3.816,0-5.97-2.888-5.97-8.564v-18.987h-7.487v18.399 c0,10.521,4.894,15.121,13.213,15.121c8.612,0,13.75-4.845,13.75-15.023v-18.498h-7.438V150.764z"></path> <path d="M164.355,145.87c-1.126,3.768-2.153,7.683-2.985,11.646h-0.147c-0.783-4.11-1.811-7.879-2.936-11.794l-4.013-13.946h-8.172 l10.57,32.982h8.71l11.108-32.982h-7.928L164.355,145.87z"></path> <path d="M146.457,0L0,146.455l146.457,146.46l146.458-146.46L146.457,0z M215.423,201.292l-12.131,12.131l-27.457-27.457 c-6.052,4.406-13.12,7.49-20.8,8.819v38.627H137.88v-38.635c-7.679-1.329-14.752-4.401-20.803-8.807l-27.453,27.453l-12.131-12.131 l27.648-27.648c-4.126-6.053-6.954-13.05-8.094-20.609H57.504V135.88h39.913c1.424-7.26,4.415-13.953,8.613-19.719L77.492,87.623 l12.131-12.131l28.729,28.729c5.763-3.929,12.38-6.686,19.527-7.924V55.504h17.155v40.793c7.147,1.238,13.764,3.996,19.527,7.925 l28.73-28.729l12.131,12.131l-28.537,28.537c4.198,5.766,7.187,12.459,8.612,19.72h39.914v17.155h-39.543 c-1.141,7.558-3.968,14.557-8.093,20.609L215.423,201.292z"></path> </g> </g></svg>`);
+    uvSVGcontainer.appendChild(uvSVG);
+    uvSVG.style.width = "60px";
+
+    titleContainer.appendChild(title);
+    titleContainer.appendChild(uvSVGcontainer);
 
     let data;
 
@@ -370,9 +433,72 @@ function uvIndexGenerator(uvData) {
 
     }
 
-
-    container.appendChild(title);
+    container.appendChild(titleContainer);
     container.appendChild(data);
     weatherDisplayContainer.appendChild(container);
+
+}
+
+function weatherStateChecker() {
+
+    let weatherStates = ["clear-day", "clear-night", "cloudy", "fog", "partly-cloudy-day", "partly-cloudy-night", "rain", "snow", "wind"];
+
+    for (let i = 0; i < weatherStates.length; i++) {
+
+        if (weatherStates[i] === "clear-day") {
+
+            mainContainer.dataset.weather = "clear-day";
+        }
+
+        else if (weatherStates[i] === "clear-night") {
+
+            mainContainer.dataset.weather === "clear-night";
+
+        }
+
+        else if (weatherStates[i] === "cloudy") {
+
+            mainContainer.dataset.weather = "cloudy";
+
+        }
+
+        else if (weatherStates[i] === "fog") {
+
+            mainContainer.dataset.weather = "fog";
+
+        }
+
+
+        else if (weatherStates[i] === "partly-cloudy-day") {
+
+            mainContainer.dataset.weather = "partly-cloudy-day";
+
+        }
+
+        else if (weatherStates[i] === "partly-cloudy-night") {
+
+            mainContainer.dataset.weather = "partly-cloudy-night";
+
+        }
+
+        else if (weatherStates[i] === "rain") {
+
+            mainContainer.dataset.weather = "rain";
+
+        }
+
+        else if (weatherStates[i] === "snow") {
+
+            mainContainer.dataset.weather = "snow";
+
+        }
+
+        else if (weatherStates[i] === "wind") {
+
+            mainContainer.dataset.weather = "wind";
+
+        }
+
+    }
 
 }

@@ -1,0 +1,122 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.container {
+    display: grid;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+}
+
+.data-section {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(250px, 1fr));
+    grid-template-rows: repeat(2, minmax(200px, 1fr));
+    gap: 50px;
+}
+
+.all-temp-container {
+    grid-row: 1 / 3;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+}
+
+.weather-display {
+    display: grid;
+    gap: 50px;
+}
+
+.weather-display-title {
+    font-size: 50px;
+}
+
+.temp-title-container,
+.feels-like-title-container,
+.humidity-title-container,
+.cloud-cover-title-container,
+.sunset-title-container,
+.sunrise-title-container,
+.uv-index-title-container {
+
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 10px;
+}
+
+h2 {
+
+    font-size: 30px;
+}
+
+p {
+    font-size: 25px;
+}
+
+.temp-container,
+.feels-like-container,
+.humidity-container,
+.cloud-cover-container,
+.sunrise-container,
+.sunset-container,
+.uv-index-container {
+
+    display: grid;
+    grid-template-rows: 1fr 2fr;
+    gap: 10px;
+
+}
+
+form, 
+label,
+input {
+
+    font-size: 20px;
+
+}
