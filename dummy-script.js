@@ -8,11 +8,17 @@ let weatherDisplayContainer = document.querySelector(".weather-display")
 
 function getWeatherData(place) {
 
+    const loader = document.querySelector(".loader");
+    loader.dataset.active = "true";
+
     return fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${place}?key=BKCJWHGKVN7TN2PLK4YMYEXHZ`)
     .then(function(response) {
         return response.json();
     })
     .then(function(data) {
+
+        loader.dataset.active = "false"
+        
         let temp = data.currentConditions.temp;
         let feelsLike = data.currentConditions.feelslike;
         let humidity = data.currentConditions.humidity;

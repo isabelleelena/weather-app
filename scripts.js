@@ -11,11 +11,17 @@ let mainContainer = document.querySelector(".container");
 
 function getWeatherData(place) {
 
+    const loader = document.querySelector(".loader");
+    loader.dataset.active = "true";
+
     return fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${place}?key=BKCJWHGKVN7TN2PLK4YMYEXHZ`)
     .then(function(response) {
         return response.json();
     })
     .then(function(data) {
+
+        loader.dataset.active = "false"
+
         let temp = data.currentConditions.temp;
         let feelsLike = data.currentConditions.feelslike;
         let humidity = data.currentConditions.humidity;
@@ -79,7 +85,7 @@ button.addEventListener("click", async (e) => {
     let uvIndex = weatherData.uvIndex;
 
 
-    weatherStateChecker();
+    weatherStateChecker(icon);
     tempSectionGenerator(temp, feelsLike, cityUpperCase);
     iconSectionGenerator(icon);
     humiditySectionGenerator(humidity);
@@ -202,6 +208,7 @@ function tempSectionGenerator(actualTempValue, feelsLikeTempValue, cityValue) {
             tempData.textContent = `${actualTempValue} F`;
             feelsLikeData.textContent = `${feelsLikeTempValue} F`
             tempData.dataset.degreeType = "Farenheit";
+            changeUnitButton.textContent = "CHANGE TO CELSIUS"
 
         }
 
@@ -439,66 +446,35 @@ function uvIndexGenerator(uvData) {
 
 }
 
-function weatherStateChecker() {
+function weatherStateChecker(weatherState) {
 
-    let weatherStates = ["clear-day", "clear-night", "cloudy", "fog", "partly-cloudy-day", "partly-cloudy-night", "rain", "snow", "wind"];
-
-    for (let i = 0; i < weatherStates.length; i++) {
-
-        if (weatherStates[i] === "clear-day") {
-
-            mainContainer.dataset.weather = "clear-day";
-        }
-
-        else if (weatherStates[i] === "clear-night") {
-
-            mainContainer.dataset.weather === "clear-night";
-
-        }
-
-        else if (weatherStates[i] === "cloudy") {
-
-            mainContainer.dataset.weather = "cloudy";
-
-        }
-
-        else if (weatherStates[i] === "fog") {
-
-            mainContainer.dataset.weather = "fog";
-
-        }
-
-
-        else if (weatherStates[i] === "partly-cloudy-day") {
-
-            mainContainer.dataset.weather = "partly-cloudy-day";
-
-        }
-
-        else if (weatherStates[i] === "partly-cloudy-night") {
-
-            mainContainer.dataset.weather = "partly-cloudy-night";
-
-        }
-
-        else if (weatherStates[i] === "rain") {
-
-            mainContainer.dataset.weather = "rain";
-
-        }
-
-        else if (weatherStates[i] === "snow") {
-
-            mainContainer.dataset.weather = "snow";
-
-        }
-
-        else if (weatherStates[i] === "wind") {
-
-            mainContainer.dataset.weather = "wind";
-
-        }
-
+    if (weatherState === "clear-day") {
+        mainContainer.dataset.weather = "clear-day";
     }
-
+    else if (weatherState === "clear-night") {
+        mainContainer.dataset.weather = "clear-night";
+    }
+    else if (weatherState === "cloudy") {
+        mainContainer.dataset.weather = "cloudy";
+    }
+    else if (weatherState === "fog") {
+        mainContainer.dataset.weather = "fog";
+    }
+    else if (weatherState === "partly-cloudy-day") {
+        mainContainer.dataset.weather = "partly-cloudy-day";
+    }
+    else if (weatherState === "partly-cloudy-night") {
+        mainContainer.dataset.weather = "partly-cloudy-night";
+    }
+    else if (weatherState === "rain") {
+        mainContainer.dataset.weather = "rain";
+    }
+    else if (weatherState === "snow") {
+        mainContainer.dataset.weather = "snow";
+    }
+    else if (weatherState === "wind") {
+        mainContainer.dataset.weather = "wind";
+    }
 }
+
+
