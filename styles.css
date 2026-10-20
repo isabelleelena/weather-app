@@ -180,8 +180,57 @@ use cloudy
 use fog
 
 */
+.container[data-weather="rain"],
+.container[data-weather="cloudy"],
+.container[data-weather="snow"] {
 
-[data-weather="rain"] {
-
+    background-color: #378193;
+    color: #bee9e8;
 
 }
+
+.container[data-weather="rain"] .data-section,
+.container[data-weather="cloudy"] .data-section,
+.container[data-weather="snow"] .data-section {
+
+    background-color: #0e3c48;
+    border-radius: 18px;
+
+}
+
+.container[data-weather="rain"] button,
+.container[data-weather="cloudy"] button,
+.container[data-weather="snow"] button {
+
+    background-color: #bee9e8;
+    color: #0e3c48;
+    border-radius: 5px;
+    border: 0px;
+
+}   
+
+.container[data-weather="fog"],
+.container[data-weather="wind"] {
+
+    background-color: #b8bdb5;
+    color: #e0e2db;
+
+}
+
+.container[data-weather="fog"] .data-section,
+.container[data-weather="wind"] .data-section {
+
+    background-color: #5f7470;
+    border-radius: 18px;
+
+}
+
+.container[data-weather="fog"] button,
+.container[data-weather="wind"] button {
+
+    background-color: #e0e2db;
+    color: #5f7470;
+    border-radius: 5px;
+    border: 0px;
+    
+}   
